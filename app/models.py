@@ -13,7 +13,7 @@ class User(Base):
 class Product(Base):
     __tablename__ = "products"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String(100), nullable=False)
+    title = Column(String(100), nullable=False)
     price = Column(Integer, nullable=False)
     quantity = Column(Integer, nullable=False)
     created_at = Column(TIMESTAMP, server_default=func.now())
