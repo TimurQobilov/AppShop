@@ -21,6 +21,16 @@
       <a class="btn btn-outline-primary" href="/signin">Войти</a>
     </div>
 
+<!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    {% block h1 %} {% endblock h1 %}
+                    {% block p %} {% endblock p %}
+                </div>
+            </div>
+        </header>
+
  {% block body %} {% endblock body %}
 
 <!-- Footer-->
