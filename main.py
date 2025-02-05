@@ -6,10 +6,7 @@ from app.models import User
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:timur910210@localhost/online_store'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
-
-
 
 
 @app.route('/')
@@ -19,6 +16,10 @@ def index():
 @app.route('/item')
 def item():
     return render_template('item-product.html')
+
+@app.route('/create')
+def create():
+    return render_template('create.html')
 
 @app.route('/signin')
 def signin():
