@@ -1,21 +1,13 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
+from app.models import User
 
 
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:timur910210@localhost/online_store'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:timur910210@localhost/online_store'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 db = SQLAlchemy(app)
-
-class Items(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    isActive = db.Column(db.Boolean, default=True)
-    text = db.Column(db.Text, nullable=False)
-
-
 
 
 
