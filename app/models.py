@@ -1,22 +1,24 @@
-from sqlalchemy import Column, Integer, String, TIMESTAMP, func, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
+db = SQLAlchemy()
 
-Base = declarative_base()
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    password_hash = db.Column(db.String(128), nullable=False)
 
-class User(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    name = Column(String(100), nullable=False)
-    email = Column(String(150), nullable=False, unique=True)
-    created_at = Column(TIMESTAMP, server_default=func.now())
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
 
-class Product(Base):
-    __tablename__ = "products"
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    title = Column(String(100), nullable=False)
-    price = Column(Integer, nullable=False)
-    quantity = Column(Integer, nullable=False)
-    created_at = Column(TIMESTAMP, server_default=func.now())
-    user_id = Column(Integer, ForeignKey("users.id"))
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+class Product(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    description = db.Column(db.Text, nullable=True)
 
