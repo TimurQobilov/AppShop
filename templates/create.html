@@ -11,17 +11,16 @@
 <body>
 <div class="container">
   <body class="text-center"cz-shortcut-listen="true">
-    <form class="form-signin" method="post">
+    <form method="post">
 
       <h1 class="h3 mb-3 font-weight-normal"> </h1>
 
-      <input type="text" class="form-control" placeholder="Название товара">
+      <input type="text" name="title" class="form-control" placeholder="Название товара">
       <br>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Цуна товара" required="">
+      <input type="number" name="price" class="form-control" placeholder="Цена товара" required="">
       <div class="checkbox mb-3">
-
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Добавить товар</button>
+      <button class="btn btn-success" type="submit">Добавить товар</button>
       <p class="mt-5 mb-3 text-muted"></p>
     </form>
 
