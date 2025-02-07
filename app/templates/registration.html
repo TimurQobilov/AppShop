@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}
+  <title>Регистрация</title>
+{% endblock %}
+
+{% block h1 %} <h1 class="display-4 fw-bolder">Зарегистрироваться</h1> {% endblock h1 %}
+{% block p %} <p class="lead fw-normal text-white-50 mb-0">Текст о стр регистрац</p>{% endblock p %}
+
+{% block body %}
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="col-md-5">
+        <form class="form-signin shadow-lg rounded bg-light p-4" method="post" action="{{ url_for('registration') }}">
+            <h2 class="h4 mb-3 font-weight-bold text-center">Регистрация</h2>
+            {{ form.hidden_tag() }}
+
+            <div class="mb-3">
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-control", placeholder="Введите имя пользователя") }}
+                {% if form.username.errors %}
+                    <div class="text-danger">{{ form.username.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control", placeholder="Введите вашу почту") }}
+                {% if form.email.errors %}
+                    <div class="text-danger">{{ form.email.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control", placeholder="Введите пароль") }}
+                {% if form.password.errors %}
+                    <div class="text-danger">{{ form.password.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
+                {{ form.confirm_password.label(class="form-label") }}
+                {{ form.confirm_password(class="form-control", placeholder="Повторите пароль") }}
+                {% if form.confirm_password.errors %}
+                    <div class="text-danger">{{ form.confirm_password.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
