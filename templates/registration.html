@@ -14,9 +14,13 @@
   <body class="text-center"cz-shortcut-listen="true">
     <form class="form-signin" method="post" action="/registration/">
       <h1 class="h3 mb-3 font-weight-normal">регистрация </h1>
+      {{ form.username.label }}<br>
       {{ form.username  }}<br>
+      {{ form.email.label }}<br>
       {{ form.email  }}<br>
+      {{ form.password1.label  }}<br>
       {{ form.password1  }}<br>
+      {{ form.password2.label  }}<br>
       {{ form.password2  }}<br>
       <div class="checkbox mb-3">
 

@@ -15,8 +15,10 @@
   <body class="text-center"cz-shortcut-listen="true">
     <form class="form-signin" method="post" action="/signin/">
       <h1 class="h3 mb-3 font-weight-normal"> </h1>
+     {{ form.username.label }}
      {{ form.username }}
 
+      {{ form.password.label }}
       {{ form.password }}
       <div class="checkbox mb-3">
 
