@@ -1,19 +1,17 @@
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Column, Integer, String
+from app import db
 
-
-db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = "users"
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    username = Column(String(100), nullable=False)
-    password = Column(String(100), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, index=True, autoincrement=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(255), nullable=False)
 
 class Product(db.Model):
     __tablename__ = "products"
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
-    title = Column(String(100), nullable=False)
-    price = Column(Integer, nullable=False)
-    description = Column(String(100), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, index=True, autoincrement=True)
+    title = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String(100), nullable=False)
 
