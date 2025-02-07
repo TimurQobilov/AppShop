@@ -4,16 +4,15 @@
 {% endblock %}
 
 {% block h1 %} <h1 class="display-4 fw-bolder">Зарегистрироваться</h1> {% endblock h1 %}
-{% block p %} <p class="lead fw-normal text-white-50 mb-0">Текст о стр регистрации</p>{% endblock p %}
+{% block p %} <p class="lead fw-normal text-white-50 mb-0">Текст о стр регистрац</p>{% endblock p %}
 
 {% block content %}
 
 
-<body>
+
 <div class="container">
-  <body class="text-center"cz-shortcut-listen="true">
-    <form class="form-signin" method="post" action="/registration/">
-      <h1 class="h3 mb-3 font-weight-normal">регистрация </h1>
+   <form class="form-signin" method="post" action="/registration/">
+      <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
       {{ form.username.label }}<br>
       {{ form.username  }}<br>
       {{ form.email.label }}<br>
@@ -22,15 +21,9 @@
       {{ form.password1  }}<br>
       {{ form.password2.label  }}<br>
       {{ form.password2  }}<br>
-      <div class="checkbox mb-3">
-
-      </div>
       {{ form.submit }}
-      <p class="mt-5 mb-3 text-muted"></p>
+      <p class="mt-5 mb-3 text-muted">Просто текст</p>
     </form>
-
-
-</body>
 </div>
 
 
