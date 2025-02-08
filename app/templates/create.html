@@ -16,6 +16,14 @@
             <h1 class="h4 mb-3 font-weight-bold text-center">Добавление товара</h1>
 
             <div class="mb-3">
+                {{ form.photo.label(class="form-label") }}
+                {{ form.photo(class="form-control", type="file") }}
+                {% if form.photo.errors %}
+                    <div class="text-danger">{{ form.photo.errors[0] }}</div>
+                {% endif %}
+            </div>
+
+            <div class="mb-3">
                 {{ form.title.label(class="form-label") }}
                 {{ form.title(class="form-control", placeholder="Название товара") }}
                 {% if form.title.errors %}

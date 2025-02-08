@@ -20,6 +20,7 @@
 
         {% if 'user_id' in session %}
             <!-- Пользователь вошел в систему -->
+
             <span class="btn btn-outline-success">Привет, {{ session['user.username'] }}!</span>
             <a class="btn btn-outline-danger" href="{{ url_for('logout') }}">Выйти</a>
         {% else %}

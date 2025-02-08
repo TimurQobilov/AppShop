@@ -1,7 +1,8 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()  # ✅ Создаём объект базы данных, но не импортируем маршруты сразу
+db = SQLAlchemy()
+UPLOAD_FOLDER = 'static/uploads'
 
 def create_app():
     app = Flask(__name__)
@@ -10,16 +11,17 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['CSRF_ENABLED'] = True
     app.config['SECRET_KEY'] = 'secret'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
     db.init_app(app)
 
-    # ✅ Импортируем модели перед созданием таблиц
-    from app.models import User, Product  
+
+    from app.models import User, Product
 
     with app.app_context():
         db.create_all()
 
-    # ✅ Импортируем маршруты ТОЛЬКО ПОСЛЕ `db.init_app(app)`
+
     from app.routes import register_routes
     register_routes(app)
 

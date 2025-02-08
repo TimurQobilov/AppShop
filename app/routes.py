@@ -3,12 +3,19 @@ from flask_bcrypt import check_password_hash, generate_password_hash
 from app.models import User, Product
 from app import db
 from app.forms import RegistrationForm, LoginForm, ProfileForm
+import os
+from werkzeug.utils import secure_filename
+
+
+
 
 def register_routes(app):
 
     @app.route('/')
     def index():
         return render_template('index.html', products=Product.query.all())
+
+
 
 
 #Добавления товара
@@ -21,6 +28,9 @@ def register_routes(app):
                 price=form.price.data,
                 description=form.description.data
             )
+            if form.photo.data:
+                filename = secure_filename(form.photo.data.filename)
+                form.photo.data.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             db.session.add(item)
             db.session.commit()
             flash("Товар успешно добавлен!", "success")
@@ -78,4 +88,11 @@ def register_routes(app):
         session.pop('username', None)
         flash("Вы вышли из системы", "info")
         return redirect(url_for('signin'))
+
+
+
+
+
+
+
 

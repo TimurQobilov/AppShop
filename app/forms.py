@@ -1,4 +1,5 @@
 from flask_wtf import FlaskForm
+from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, FloatField, TextAreaField, SubmitField,EmailField
 from wtforms.validators import DataRequired,Length
 
@@ -19,3 +20,7 @@ class ProfileForm(FlaskForm):
     price = FloatField('Цена', validators=[DataRequired()])
     description = TextAreaField('Описание', validators=[DataRequired()])
     submit = SubmitField('Сохранить')
+    photo = FileField('Фото товара', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Только изображения!')])
+
+
+
