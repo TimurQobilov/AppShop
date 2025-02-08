@@ -58,17 +58,22 @@ def register_routes(app):
 #Вход в магазин
     @app.route('/signin', methods=['GET', 'POST'])
     def signin():
+        print(1)
         form = LoginForm()
-        if request.method == 'POST' and form.validate_on_submit():
+        if form.validate_on_submit():
+            print(2)
             username = form.username.data
             password = form.password.data
-            user = User.query.filter_by(username=username).first()
-            if user and check_password_hash(user.password, password):
+            user = User.query.filter_by(username=username, password=password).first()
+            print(3)
+            if user:
                 session['user_id'] = user.id
-                flash("Вы успешно вошли", "success")
+                flash("Вы успешно вошли в систему", "success")
+
                 return redirect(url_for('/'))
             else:
                 flash("Неверное имя пользователя или пароль", "danger")
+
         return render_template('signin.html', form=form)
 
 #Выходи из магазина

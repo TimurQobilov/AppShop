@@ -5,8 +5,8 @@ from wtforms.validators import DataRequired,Length
 class RegistrationForm(FlaskForm):
     username = StringField(label='Имя', validators=[DataRequired('Заполните имя'), Length(min=2, max=20)])
     email = EmailField(label='Почта', validators=[DataRequired('Впишите почту')])
-    password = PasswordField(label='Придумайте пароль', validators=[DataRequired('Придумайте пароль'), Length(min=8)])
-    confirm_password = PasswordField(label='Повторите пароль', validators=[DataRequired('Повторите пароль'), Length(min=8)])
+    password = PasswordField(label='Придумайте пароль', validators=[DataRequired('Придумайте пароль'), Length(min=2)])
+    confirm_password = PasswordField(label='Повторите пароль', validators=[DataRequired('Повторите пароль'), Length(min=2)])
     submit = SubmitField(label='Зарегистрироваться')
 
 class LoginForm(FlaskForm):
