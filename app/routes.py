@@ -75,5 +75,7 @@ def register_routes(app):
     @app.route('/logout')
     def logout():
         session.pop('user_id', None)
+        session.pop('username', None)
         flash("Вы вышли из системы", "info")
-        return redirect(url_for('/'))
+        return redirect(url_for('signin'))
+

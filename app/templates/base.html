@@ -13,14 +13,23 @@
 <body>
 <!-- Navigation-->
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-      <h5 class="my-0 mr-md-auto font-weight-normal" >App shop</h5>
-      <nav class="my-2 my-md-0 mr-md-3">
-          <a class="btn btn-outline-primary" href="/">Главная</a>
-          <a class="btn btn-outline-primary" href="/create">Добавить товар</a>
-          <a class="btn btn-outline-primary" href="/registration">Зарегистрироватся</a>
-          <a class="btn btn-outline-primary" href="/signin">Войти</a>
-      </nav>
-    </div>
+    <h5 class="my-0 mr-md-auto font-weight-normal">App shop</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="btn btn-outline-primary" href="/">Главная</a>
+        <a class="btn btn-outline-primary" href="/create">Добавить товар</a>
+
+        {% if 'user_id' in session %}
+            <!-- Пользователь вошел в систему -->
+            <span class="btn btn-outline-success">Привет, {{ session['user.username'] }}!</span>
+            <a class="btn btn-outline-danger" href="{{ url_for('logout') }}">Выйти</a>
+        {% else %}
+            <!-- Пользователь не вошел -->
+            <a class="btn btn-outline-primary" href="/registration">Зарегистрироваться</a>
+            <a class="btn btn-outline-primary" href="/signin">Войти</a>
+        {% endif %}
+    </nav>
+</div>
+
 <!-- Header-->
         <header class="bg-dark py-5">
             <div class="container px-4 px-lg-5 my-5">
