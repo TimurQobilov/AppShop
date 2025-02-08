@@ -10,6 +10,7 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
   <div class="col-md-4">
     <form class="form-signin p-4 shadow-lg rounded bg-light" method="post" action="{{ url_for('signin') }}">
+      {{ form.hidden_tag() }}
       <h1 class="h4 mb-3 font-weight-bold text-center">Вход</h1>
 
       <div class="form-group">
