@@ -1,5 +1,3 @@
-
-
 from app import create_app
 from flask_login import LoginManager
 from app.models import User
