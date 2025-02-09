@@ -22,7 +22,7 @@
                 {% for item in cart_items %}
                 <tr>
                     <td>{{ item.product.title }}</td>
-                    <td>{{ item.product.price }} ₽</td>
+                    <td>{{ item.product.price }} Сум</td>
                     <td>{{ item.quantity }}</td>
                     <td>
                         <a href="{{ url_for('remove_from_cart', item_id=item.id) }}" class="btn btn-danger">Удалить</a>

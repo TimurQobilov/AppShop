@@ -1,9 +1,8 @@
-from flask_login import login_required, current_user, login_user
+from flask_login import login_required, login_user
 from flask import render_template, redirect, url_for, session, flash
 from flask_bcrypt import generate_password_hash, check_password_hash
 from sqlalchemy.sql.functions import current_user
 from flask_login import current_user
-from flask import request
 from app.models import User, Product, CartItem
 from app import db
 from app.forms import RegistrationForm, LoginForm, ProfileForm
@@ -76,7 +75,8 @@ def register_routes(app):
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
             if user and check_password_hash(user.password, form.password.data):
-                login_user(user)  # ✅ Авторизуем пользователя
+                login_user(user)
+                session['user_id'] = user.id  # Записываем ID пользователя в сессию
                 flash("Вы успешно вошли!", "success")
                 return redirect(url_for('index'))
             else:
@@ -100,7 +100,6 @@ def register_routes(app):
         if cart_item:
             cart_item.quantity += 1
         else:
-            print(1)
             cart_item = CartItem(user_id=current_user.id, product_id=product_id)
             db.session.add(cart_item)
         db.session.commit()
