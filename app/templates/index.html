@@ -35,9 +35,9 @@
                                     </div>
                                 </div>
                                 <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                                </div>
+                                <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+                                    <button style=align-content:  type="submit" class="btn btn-primary">Добавить в корзину</button>
+                                </form>
                             </div>
                         </div>
                     {% endfor %}

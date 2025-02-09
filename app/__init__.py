@@ -16,7 +16,9 @@ def create_app():
     db.init_app(app)
 
 
-    from app.models import User, Product
+
+
+    from app.models import User, Product, CartItem
 
     with app.app_context():
         db.create_all()

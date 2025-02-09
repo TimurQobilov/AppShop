@@ -1,6 +1,10 @@
-from flask import render_template, request, redirect, url_for, session, flash
-from flask_bcrypt import check_password_hash, generate_password_hash
-from app.models import User, Product
+from flask_login import login_required, current_user, login_user
+from flask import render_template, redirect, url_for, session, flash
+from flask_bcrypt import generate_password_hash, check_password_hash
+from sqlalchemy.sql.functions import current_user
+from flask_login import current_user
+from flask import request
+from app.models import User, Product, CartItem
 from app import db
 from app.forms import RegistrationForm, LoginForm, ProfileForm
 import os
@@ -70,15 +74,13 @@ def register_routes(app):
     def signin():
         form = LoginForm()
         if form.validate_on_submit():
-            username = form.username.data
-            user = User.query.filter_by(username=username).first()  # Ищем только по имени
-            if user:
-                session['user_id'] = user.id
-                flash("Вы успешно вошли в систему", "success")
+            user = User.query.filter_by(username=form.username.data).first()
+            if user and check_password_hash(user.password, form.password.data):
+                login_user(user)  # ✅ Авторизуем пользователя
+                flash("Вы успешно вошли!", "success")
                 return redirect(url_for('index'))
             else:
-                flash("Неверное имя пользователя или пароль", "danger")
-
+                flash("Неверные данные!", "danger")
         return render_template('signin.html', form=form)
 
 #Выходи из магазина
@@ -88,6 +90,40 @@ def register_routes(app):
         session.pop('username', None)
         flash("Вы вышли из системы", "info")
         return redirect(url_for('signin'))
+
+
+# Добавление товара в корзину
+    @app.route('/add_to_cart/<int:product_id>', methods=['POST', 'GET'])
+    @login_required
+    def add_to_cart(product_id):
+        cart_item = CartItem.query.filter_by(user_id=current_user.id, product_id=product_id).first()
+        if cart_item:
+            cart_item.quantity += 1
+        else:
+            print(1)
+            cart_item = CartItem(user_id=current_user.id, product_id=product_id)
+            db.session.add(cart_item)
+        db.session.commit()
+        flash('Товар добавлен в корзину', 'success')
+        return redirect(url_for('cart'))
+
+    # Страница корзины
+    @app.route('/cart')
+    @login_required
+    def cart():
+        cart_items = CartItem.query.filter_by(user_id=current_user.id).all()
+        return render_template('cart.html', cart_items=cart_items)
+
+    # Удаление товара из корзины
+    @app.route('/remove_from_cart/<int:item_id>')
+    @login_required
+    def remove_from_cart(item_id):
+        cart_item = CartItem.query.get(item_id)
+        if cart_item and cart_item.user_id == current_user.id:
+            db.session.delete(cart_item)
+            db.session.commit()
+            flash('Товар удалён из корзины', 'info')
+        return redirect(url_for('cart'))
 
 
 

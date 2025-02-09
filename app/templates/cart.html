@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}
+  <title>Корзина</title>
+{% endblock %}
+
+{% block h1 %} <h1 class="display-4 fw-bolder">Корзина</h1> {% endblock h1 %}
+{% block p %} <p class="lead fw-normal text-white-50 mb-0">Текст о стр корзина</p>{% endblock p %}
+{% block body %}
+<div class="container">
+    <h2>Корзина</h2>
+    {% if cart_items %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Товар</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Действие</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.title }}</td>
+                    <td>{{ item.product.price }} ₽</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>
+                        <a href="{{ url_for('remove_from_cart', item_id=item.id) }}" class="btn btn-danger">Удалить</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Корзина пуста.</p>
+    {% endif %}
+</div>
+{% endblock %}
